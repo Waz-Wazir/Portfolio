@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rehmat Ullah | Administrative Officer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Exo+2:wght@300;400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-purple: #b967ff;
+            --neon-pink: #ff2a6d;
+            --dark-bg: #0a0a16;
+            --card-bg: rgba(16, 18, 37, 0.8);
+            --text-glow: 0 0 10px currentColor;
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: var(--dark-bg);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #0a0a16 0%, #1a1a2e 50%, #16213e 100%);
+        }
+
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, rgba(0, 243, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(180deg, rgba(0, 243, 255, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        .cv-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Header with Holographic Effect */
+        .header {
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, 
+                rgba(0, 243, 255, 0.1) 0%, 
+                rgba(185, 103, 255, 0.1) 50%, 
+                rgba(255, 42, 109, 0.1) 100%);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            box-shadow: 
+                0 0 30px rgba(0, 243, 255, 0.2),
+                inset 0 0 30px rgba(185, 103, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .hologram-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                transparent 30%, 
+                rgba(0, 243, 255, 0.1) 50%, 
+                transparent 70%);
+            animation: hologram 3s infinite linear;
+            border-radius: 20px;
+            pointer-events: none;
+        }
+
+        @keyframes hologram {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .name {
+            font-family: 'Orbitron', monospace;
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: var(--text-glow);
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+        }
+
+        .designation {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.8rem;
+            color: var(--neon-blue);
+            text-shadow: var(--text-glow);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .experience-badge {
+            display: inline-block;
+            padding: 12px 25px;
+            background: rgba(255, 42, 109, 0.2);
+            border: 1px solid var(--neon-pink);
+            border-radius: 25px;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.1rem;
+            color: var(--neon-pink);
+            text-shadow: var(--text-glow);
+            box-shadow: 0 0 15px rgba(255, 42, 109, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Main Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        /* Cyber Cards */
+        .cyber-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            box-shadow: 
+                0 0 20px rgba(0, 243, 255, 0.1),
+                inset 0 0 20px rgba(185, 103, 255, 0.05);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cyber-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+        }
+
+        .cyber-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 10px 30px rgba(0, 243, 255, 0.2),
+                inset 0 0 30px rgba(185, 103, 255, 0.1);
+        }
+
+        .card-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            color: var(--neon-blue);
+            text-shadow: var(--text-glow);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title i {
+            font-size: 1.8rem;
+        }
+
+        /* Contact Info */
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(0, 243, 255, 0.05);
+            border-radius: 8px;
+            border-left: 3px solid var(--neon-blue);
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 243, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.2rem;
+            color: var(--neon-blue);
+        }
+
+        /* Skills with Progress Bars */
+        .skill-item {
+            margin-bottom: 20px;
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: between;
+            margin-bottom: 8px;
+        }
+
+        .skill-name {
+            font-weight: 600;
+            color: var(--neon-blue);
+        }
+
+        .skill-percentage {
+            color: var(--neon-purple);
+            font-family: 'Orbitron', monospace;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            border-radius: 4px;
+            animation: fillBar 2s ease-out;
+            position: relative;
+        }
+
+        .skill-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 20px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shine 2s infinite;
+        }
+
+        @keyframes fillBar {
+            from { width: 0%; }
+        }
+
+        @keyframes shine {
+            0%, 100% { transform: translateX(-100px); }
+            50% { transform: translateX(100px); }
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(16, 18, 37, 0.6);
+            border-radius: 10px;
+            border-left: 3px solid var(--neon-blue);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -38px;
+            top: 25px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--neon-blue);
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .timeline-title {
+            font-family: 'Orbitron', monospace;
+            color: var(--neon-blue);
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+        }
+
+        .timeline-duration {
+            color: var(--neon-purple);
+            font-family: 'Rajdhani', sans-serif;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        /* Language Matrix */
+        .language-matrix {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .language-cube {
+            aspect-ratio: 1;
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid var(--neon-blue);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .language-cube:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 0 20px var(--neon-blue);
+        }
+
+        .language-cube::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 243, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: matrixFlow 3s infinite linear;
+        }
+
+        @keyframes matrixFlow {
+            0% { transform: translateY(-100%) rotate(45deg); }
+            100% { transform: translateY(100%) rotate(45deg); }
+        }
+
+        .language-name {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.1rem;
+            color: var(--neon-blue);
+            z-index: 1;
+        }
+
+        .language-level {
+            font-size: 0.8rem;
+            color: var(--neon-purple);
+            z-index: 1;
+        }
+
+        /* Achievement Grid */
+        .achievement-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .achievement-item {
+            background: rgba(185, 103, 255, 0.1);
+            border: 1px solid var(--neon-purple);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .achievement-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(185, 103, 255, 0.3);
+        }
+
+        .achievement-icon {
+            font-size: 2rem;
+            color: var(--neon-purple);
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+            background: rgba(16, 18, 37, 0.8);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 42, 109, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+        }
+
+        .footer-text {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+            color: var(--neon-blue);
+            text-shadow: var(--text-glow);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .name {
+                font-size: 2.5rem;
+            }
+            
+            .language-matrix {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cyber-grid"></div>
+    <div class="particles-container" id="particles"></div>
+
+    <div class="cv-container">
+        <!-- Header -->
+        <div class="header">
+            <div class="hologram-effect"></div>
+            <h1 class="name">REHMAT ULLAH</h1>
+            <h2 class="designation">ADMINISTRATIVE OFFICER</h2>
+            <div class="experience-badge">15 YEARS EXPERIENCE</div>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="content-grid">
+            <!-- Left Column -->
+            <div class="left-column">
+                <!-- Contact -->
+                <div class="cyber-card">
+                    <h3 class="card-title"><i>📡</i> CONTACT MATRIX</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div>+92 315 8248150</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div>[YOUR EMAIL]</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🌍</div>
+                        <div>[YOUR LOCATION]</div>
+                    </div>
+                </div>
+
+                <!-- Skills -->
+                <div class="cyber-card">
+                    <h3 class="card-title"><i>⚡</i> CORE COMPETENCIES</h3>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Academic Operations</span>
+                            <span class="skill-percentage">98%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 98%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Staff Coordination</span>
+                            <span class="skill-percentage">95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Budget Management</span>
+                            <span class="skill-percentage">92%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 92%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Strategic Planning</span>
+                            <span class="skill-percentage">96%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 96%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Languages -->
+                <div class="cyber-card">
+                    <h3 class="card-title"><i>🌐</i> LANGUAGE MATRIX</h3>
+                    <div class="language-matrix">
+                        <div class="language-cube">
+                            <div class="language-name">PASHTO</div>
+                            <div class="language-level">NATIVE</div>
+                        </div>
+                        <div class="language-cube">
+                            <div class="language-name">URDU</div>
+                            <div class="language-level">FLUENT</div>
+                        </div>
+                        <div class="language-cube">
+                            <div class="language-name">ENGLISH</div>
+                            <div class="language-level">FLUENT</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="right-column">
+                <!-- About -->
+                <div class="cyber-card">
+                    <h3 class="card-title"><i>👁️</i> PROFILE ANALYSIS</h3>
+                    <p style="line-height: 1.6; color: #e0e0e0;">
+                        A seasoned Administrative Officer with 15 years of comprehensive experience in educational administration. 
+                        Expertise in managing academic operations, coordinating multidisciplinary teams, and implementing institutional 
+                        development strategies. Proven track record in enhancing operational efficiency, fostering collaborative 
+                        environments, and driving excellence across educational departments.
+                    </p>
+                </div>
+
+                <!-- Experience -->
+                <div class="cyber-card">
+                    <h3 class="card-title"><i>💼</i> MISSION LOG</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-title">ADMINISTRATIVE OFFICER</div>
+                            <div class="timeline-duration">SCHOOL & COLLEGE | 15 YEARS</div>
+                            <ul style="color: #e0e0e0; padding-left: 20px;">
+                                <li>Directed comprehensive academic operations across multiple departments</li>
+                                <li>Managed institutional budgeting and resource allocation</li>
+                                <li>Implemented innovative record management systems</li>
+                                <li>Coordinated large-scale events and academic programs</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Achievements -->
+                <div class="cyber-card">
+                    <h3 class="card-title"><i>🏆</i> ACHIEVEMENT GRID</h3>
+                    <div class="achievement-grid">
+                        <div class="achievement-item">
+                            <div class="achievement-icon">🚀</div>
+                            <div>40% Efficiency Boost</div>
+                        </div>
+                        <div class="achievement-item">
+                            <div class="achievement-icon">💰</div>
+                            <div>15% Cost Reduction</div>
+                        </div>
+                        <div class="achievement-item">
+                            <div class="achievement-icon">⭐</div>
+                            <div>Excellence Award 2020</div>
+                        </div>
+                        <div class="achievement-item">
+                            <div class="achievement-icon">👥</div>
+                            <div>15+ Team Leadership</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-text">
+                "THIS CV REFLECTS PROFESSIONALISM, LEADERSHIP, AND EXCELLENCE IN EDUCATIONAL ADMINISTRATION"
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Particle System
+        class ParticleSystem {
+            constructor() {
+                this.scene = new THREE.Scene();
+                this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                this.renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+                
+                this.setupRenderer();
+                this.setupCamera();
+                this.createParticles();
+                this.animate();
+            }
+
+            setupRenderer() {
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+                this.renderer.setClearColor(0x000000, 0);
+                document.getElementById('particles').appendChild(this.renderer.domElement);
+            }
+
+            setupCamera() {
+                this.camera.position.z = 50;
+            }
+
+            createParticles() {
+                const geometry = new THREE.BufferGeometry();
+                const vertices = [];
+                const colors = [];
+                
+                for (let i = 0; i < 1000; i++) {
+                    vertices.push(
+                        Math.random() * 1000 - 500,
+                        Math.random() * 1000 - 500,
+                        Math.random() * 1000 - 500
+                    );
+                    
+                    colors.push(
+                        0.0, 0.8, 1.0,  // Neon Blue
+                        0.7, 0.0, 1.0,  // Neon Purple
+                        1.0, 0.2, 0.6   // Neon Pink
+                    )[Math.floor(Math.random() * 3) * 3 + 0];
+                    colors.push(
+                        0.0, 0.8, 1.0,
+                        0.7, 0.0, 1.0,
+                        1.0, 0.2, 0.6
+                    )[Math.floor(Math.random() * 3) * 3 + 1];
+                    colors.push(
+                        0.0, 0.8, 1.0,
+                        0.7, 0.0, 1.0,
+                        1.0, 0.2, 0.6
+                    )[Math.floor(Math.random() * 3) * 3 + 2];
+                }
+
+                geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+                geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+
+                const material = new THREE.PointsMaterial({
+                    size: 2,
+                    vertexColors: true,
+                    transparent: true,
+                    opacity: 0.6
+                });
+
+                this.particles = new THREE.Points(geometry, material);
+                this.scene.add(this.particles);
+            }
+
+            animate() {
+                requestAnimationFrame(() => this.animate());
+                
+                if (this.particles) {
+                    this.particles.rotation.x += 0.001;
+                    this.particles.rotation.y += 0.002;
+                }
+                
+                this.renderer.render(this.scene, this.camera);
+            }
+        }
+
+        // Initialize particle system
+        new ParticleSystem();
+
+        // Add interactive effects
+        document.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.cyber-card');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            cards.forEach(card => {
+                card.style.transform = `translateY(-5px) rotateX(${(y - 0.5) * 5}deg) rotateY(${(x - 0.5) * 5}deg)`;
+            });
+        });
+
+        // Add scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.cyber-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
